@@ -1,1 +1,30 @@
+`timescale 1ns / 1ps
 
+module mux2to1(
+   input wire [1:0]sw,
+	input wire [0:0]btn,
+	output wire [0:0]ld
+    );
+
+mux2to1b m1(.a(sw[0]),
+				.b(sw[1]),
+				.s(btn[0]),
+				.y(ld[0])
+				);
+
+endmodule
+
+module mux2to1b(
+	input wire a,
+	input wire b,
+	input wire s,
+	output reg y
+	);
+
+always @(a,b,s)
+	if(s==0)
+		y=a;
+	else
+		y=b;
+		
+endmodule
