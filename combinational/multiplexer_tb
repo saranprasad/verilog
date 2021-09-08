@@ -1,1 +1,48 @@
+`timescale 1ns / 1ps
 
+module mux2to1_tb;
+
+	// Inputs
+	reg [1:0] sw;
+	reg [0:0] btn;
+
+	// Outputs
+	wire [0:0] ld;
+
+	// Instantiate the Unit Under Test (UUT)
+	mux2to1 uut (
+		.sw(sw), 
+		.btn(btn), 
+		.ld(ld)
+	);
+
+	initial begin
+		// Initialize Inputs
+		sw = 0;
+		btn = 0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+		// Add stimulus here
+		btn = 1'b0;
+			sw = 2'b00;
+			#10;
+			sw = 2'b01;
+			#10;
+			sw = 2'b10;
+			#10;
+			sw = 2'b11;
+			#10;
+		btn = 1'b1;
+			sw = 2'b00;
+			#10;
+			sw = 2'b01;
+			#10;
+			sw = 2'b10;
+			#10;
+			sw = 2'b11;
+			#10;
+	end
+      
+endmodule
