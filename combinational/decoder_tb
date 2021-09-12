@@ -1,0 +1,33 @@
+`timescale 1ns / 1ps
+
+module decoder_tb;
+
+	// Inputs
+	reg [2:0] a;
+
+	// Outputs
+	wire [7:0] y;
+	integer i;
+
+	// Instantiate the Unit Under Test (UUT)
+	decoder uut (
+		.a(a), 
+		.y(y)
+	);
+
+	initial begin
+		// Initialize Inputs
+		a = 0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+		// Add stimulus here
+		for(i=0; i<=7; i=i+1)
+		begin
+			a=1; #2;
+		end
+	end
+      
+endmodule
+
