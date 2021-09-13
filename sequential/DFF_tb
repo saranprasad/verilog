@@ -1,0 +1,39 @@
+`timescale 1ns / 1ps
+
+module DFF_tb;
+
+	// Inputs
+	reg clk;
+	reg clr;
+	reg D;
+
+	// Outputs
+	wire q;
+
+	// Instantiate the Unit Under Test (UUT)
+	DFF uut (
+		.clk(clk), 
+		.clr(clr), 
+		.D(D), 
+		.q(q)
+	);
+
+	always #20 clk = ~clk;
+
+	initial begin
+		// Initialize Inputs
+		clk = 0;
+		clr = 1;
+		D = 0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+		// Add stimulus here
+		clr = 0;
+		D = 1;
+		#40;
+		D = 0;
+	end
+      
+endmodule
