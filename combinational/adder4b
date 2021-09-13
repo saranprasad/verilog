@@ -1,0 +1,20 @@
+`timescale 1ns / 1ps
+
+module adder4b(
+input wire [3:0]a,
+input wire [3:0]b,
+output reg [3:0]s,
+output reg cf,
+output reg ovf
+    );
+reg [4:0]temp;
+
+always @(*)
+begin
+	temp = {1'b0,a} + {1'b0,b};
+	s = temp[3:0];
+	cf = temp[4];
+	ovf = s[3] ^ a[3] ^ b[3] ^ cf;
+end
+
+endmodule
