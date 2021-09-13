@@ -1,0 +1,41 @@
+`timescale 1ns / 1ps
+
+module adder4b_tb;
+
+	// Inputs
+	reg [3:0] a;
+	reg [3:0] b;
+
+	// Outputs
+	wire [3:0] s;
+	wire cf;
+	wire ovf;
+	integer i;
+	
+	// Instantiate the Unit Under Test (UUT)
+	adder4b uut (
+		.a(a), 
+		.b(b), 
+		.s(s), 
+		.cf(cf), 
+		.ovf(ovf)
+	);
+
+	initial begin
+		// Initialize Inputs
+		a = 0;
+		b = 0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+		// Add stimulus here
+		for(i=0; i<=256; i=i+1)
+		begin
+			{a,b} = i;
+		end
+		
+	end
+      
+endmodule
+
