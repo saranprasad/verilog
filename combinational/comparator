@@ -1,0 +1,38 @@
+`timescale 1ns / 1ps
+
+module comparator(
+input wire [3:0] sw,
+output wire [2:0] ld
+    );
+
+comp2bit u1 (.a(sw[3:2]),
+				 .b(sw[1:0]),
+				 .a_eq_b(ld[1]),
+				 .a_gt_b(ld[0]),
+				 .a_lt_b(ld[2])
+				);
+
+endmodule
+
+module comp2bit(
+input wire [1:0] a,
+input wire [1:0] b,
+output wire a_eq_b,
+output wire a_gt_b,
+output wire a_lt_b
+);
+
+assign a_eq_b = ~b[1] & ~b[0] & ~a[1] & ~a[0]
+						| ~b[1] & b[0] & ~a[1] & a[0]
+						| b[1] & ~b[0] & a[1] & ~a[0]
+						| b[1] & b[0] & a[1] & a[0];
+
+assign a_gt_b = ~b[1] & a[1]
+						|~b[1] & ~b[0] & a[0]
+						|~b[0] & a[1] & a[0];
+
+assign a_lt_b = b[1] & ~a[1]
+						|b[1] & b[0] & ~a[0]
+						|b[0] & ~a[1] & ~a[0];
+						
+endmodule
