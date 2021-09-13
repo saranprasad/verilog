@@ -1,0 +1,49 @@
+`timescale 1ns / 1ps
+
+module SIPO_tb;
+
+	// Inputs
+	reg clk;
+	reg clr;
+	reg data_in;
+
+	// Outputs
+	wire [3:0] q;
+
+	// Instantiate the Unit Under Test (UUT)
+	SIPO uut (
+		.clk(clk), 
+		.clr(clr), 
+		.data_in(data_in), 
+		.q(q)
+	);
+
+	always #20 clk = ~clk;
+	
+	initial begin
+		// Initialize Inputs
+		clk = 0;
+		clr = 1;
+		data_in = 0;
+		repeat(2)@(posedge clk);
+		clr = 0;
+		data_in = 1;
+		@(posedge clk);
+		data_in = 0;
+		@(posedge clk);
+		data_in = 1;
+		@(posedge clk);
+		data_in = 0;
+		@(posedge clk);
+		data_in = 1;
+		@(posedge clk);
+		
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+		// Add stimulus here
+
+	end
+      
+endmodule
+
