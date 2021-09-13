@@ -1,0 +1,13 @@
+`timescale 1ns / 1ps
+
+module PIPO_bel(
+	input [2:0] D,
+	input clk,rst,
+	output [2:0] Q
+    );
+
+DFF f1(.d(D[0]),.q(Q[0]),.clk(clk),.rst(rst));
+DFF f2(.d(D[1]),.q(Q[1]),.clk(clk),.rst(rst));
+DFF f3(.d(D[2]),.q(Q[2]),.clk(clk),.rst(rst));
+
+endmodule
