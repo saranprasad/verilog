@@ -1,0 +1,14 @@
+`timescale 1ns / 1ps
+
+module SISO(input clk,rst,
+				input data_in,
+				output data_out
+    );
+	wire w1,w2,w3;
+	
+	DFF f1(.D(data_in),.q(w1),.clk(clk),.rst(rst));
+	DFF f2(.D(w1),.q(w2),.clk(clk),.rst(rst));
+	DFF f3(.D(w2),.q(w3),.clk(clk),.rst(rst));
+	DFF f4(.D(w3),.q(data_out),.clk(clk),.rst(rst));
+
+endmodule
