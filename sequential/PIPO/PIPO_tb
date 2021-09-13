@@ -1,0 +1,60 @@
+`timescale 1ns / 1ps
+
+module PIPO_bel_tb;
+
+	// Inputs
+	reg [2:0] D;
+	reg clk;
+	reg rst;
+
+	// Outputs
+	wire [2:0] Q;
+
+	// Instantiate the Unit Under Test (UUT)
+	PIPO_bel uut (
+		.D(D), 
+		.clk(clk), 
+		.rst(rst), 
+		.Q(Q)
+	);
+
+	always #20 clk = ~clk;
+	
+	initial begin
+		// Initialize Inputs
+		D = 0;
+		clk = 0;
+		rst = 0;
+		@(posedge clk)
+		rst = 1'b1;
+		repeat(2) @(posedge clk);
+		rst = 1'b0;
+		{D} = 3'b001;
+		@(posedge clk);
+		{D} = 3'b010;
+		@(posedge clk);
+		{D} = 3'b011;
+		@(posedge clk);
+		{D} = 3'b100;
+		@(posedge clk);
+		{D} = 3'b101;
+		@(posedge clk);
+		{D} = 3'b110;
+		@(posedge clk);
+		{D} = 3'b111;
+		@(posedge clk);
+		{D} = 3'b101;
+		@(posedge clk);
+		{D} = 3'b110;
+		@(posedge clk);
+		{D} = 3'b011;
+		
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+		// Add stimulus here
+
+	end
+      
+endmodule
+
