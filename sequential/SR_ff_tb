@@ -1,0 +1,52 @@
+`timescale 1ns / 1ps
+
+module SR_ff_tb;
+
+	// Inputs
+	reg S;
+	reg R;
+	reg clk;
+	reg rst;
+
+	// Outputs
+	wire q;
+	wire q_bar;
+
+	// Instantiate the Unit Under Test (UUT)
+	SR_ff uut (
+		.S(S), 
+		.R(R), 
+		.clk(clk), 
+		.rst(rst), 
+		.q(q), 
+		.q_bar(q_bar)
+	);
+
+always #20 clk = ~clk;
+
+	initial begin
+		// Initialize Inputs
+		S = 0;
+		R = 0;
+		clk = 0;
+		rst = 0;
+		@(posedge clk);
+		rst = 1'b1;
+		repeat(2) @(posedge clk);
+		rst = 1'b0;
+		{S,R} = 2'b00;
+		repeat(2) @(posedge clk);
+		{S,R} = 2'b01;
+		repeat(2) @(posedge clk);
+		{S,R} = 2'b10;
+		repeat(2) @(posedge clk);
+		{S,R} = 2'b11;
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+		// Add stimulus here
+
+	end
+      
+endmodule
+
