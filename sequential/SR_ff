@@ -1,0 +1,23 @@
+`timescale 1ns / 1ps
+
+module SR_ff(
+input S,R,clk,rst,
+output reg q,
+output wire q_bar
+    );
+
+always @(posedge clk or posedge rst)
+begin
+	if(rst)
+	begin
+		q<=0;
+	end
+	else
+	begin
+		q <= S || (~R && q);
+	end
+end
+
+assign q_bar = ~q;
+
+endmodule
