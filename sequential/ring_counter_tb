@@ -1,0 +1,31 @@
+`timescale 1ns / 1ps
+
+module ring_counter_tb;
+
+	// Inputs
+	reg clk;
+	reg clr;
+
+	// Outputs
+	wire [2:0] q;
+
+	// Instantiate the Unit Under Test (UUT)
+	ring_counter uut (
+		.clk(clk), 
+		.clr(clr), 
+		.q(q)
+	);
+
+	always #20 clk = ~clk;
+	
+	initial begin
+		// Initialize Inputs
+		clk = 0;
+		clr = 1;
+		repeat(2)@(posedge clk);
+		clr = 0;
+		
+	end
+      
+endmodule
+
